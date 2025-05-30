@@ -5,7 +5,7 @@ import { BASE_URL } from "../config";
 import { LoginResponse } from "@/types/LoginResponse";
 import { RegisterResponse } from "@/types/RegisterResponse";
 
-export async function register(
+export async function authRegister(
 	payload: RegisterPayload
 ): Promise<Response<RegisterResponse>> {
 	try {
@@ -41,7 +41,7 @@ export async function register(
 	}
 }
 
-export async function login(
+export async function authLogin(
 	payload: LoginPayload
 ): Promise<Response<LoginResponse>> {
 	try {

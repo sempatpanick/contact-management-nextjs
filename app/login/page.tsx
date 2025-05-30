@@ -1,7 +1,7 @@
 "use client";
 
 import { alertError } from "@/lib/alert";
-import { login } from "@/lib/api/authApi";
+import { authLogin } from "@/lib/api/authApi";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { FormEvent, useState } from "react";
@@ -16,7 +16,7 @@ export default function Login() {
 	async function handleSubmit(e: FormEvent<HTMLFormElement>) {
 		e.preventDefault();
 
-		const response = await login({
+		const response = await authLogin({
 			username,
 			password,
 		});

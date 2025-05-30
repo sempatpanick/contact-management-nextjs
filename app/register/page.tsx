@@ -1,7 +1,7 @@
 "use client";
 
 import { alertError, alertSuccess } from "@/lib/alert";
-import { register } from "@/lib/api/authApi";
+import { authRegister } from "@/lib/api/authApi";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { FormEvent, useState } from "react";
@@ -20,7 +20,7 @@ export default function Register() {
 			return;
 		}
 
-		const response = await register({
+		const response = await authRegister({
 			username,
 			password,
 			name,
