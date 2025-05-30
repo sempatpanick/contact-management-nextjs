@@ -197,7 +197,7 @@ export async function contactDelete(
 		const data = await res.json();
 		return {
 			success: true,
-			message: "Contact successfully fetched.",
+			message: "Contact successfully deleted.",
 			data: data.data,
 		};
 	} catch (error) {
