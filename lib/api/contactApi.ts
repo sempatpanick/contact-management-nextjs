@@ -134,7 +134,7 @@ export async function contactList(
 export async function contactDetail(
 	token: string,
 	id: number
-): Promise<Response<Array<ContactResponse>>> {
+): Promise<Response<ContactResponse>> {
 	try {
 		const url = new URL(`${BASE_URL}/contacts/${id}`);
 

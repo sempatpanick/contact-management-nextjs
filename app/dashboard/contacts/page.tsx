@@ -35,6 +35,7 @@ export default function ContactList() {
 
 		if (!response.success) {
 			await alertError(response.message ?? "Failed to get contacts");
+			return;
 		}
 
 		setContacts(response.data ?? []);
@@ -53,6 +54,7 @@ export default function ContactList() {
 
 		if (!response.success) {
 			await alertError(response.message ?? "Failed to delete contact");
+			return;
 		}
 
 		alertSuccess("Contact has been deleted successfully");

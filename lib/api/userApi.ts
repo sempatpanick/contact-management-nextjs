@@ -1,19 +1,20 @@
-import { LoginPayload } from "@/types/LoginPayload";
-import { RegisterPayload } from "@/types/RegisterPayload";
 import { Response } from "@/types/Response";
-import { BASE_URL } from "../config";
-import { LoginResponse } from "@/types/LoginResponse";
+import { UserPayload } from "@/types/UserPayload";
 import { UserResponse } from "@/types/UserResponse";
+import { BASE_URL } from "../config";
 
-export async function authRegister(
-	payload: RegisterPayload
+export async function userUpdateProfile(
+	token: string,
+	payload: UserPayload
 ): Promise<Response<UserResponse>> {
 	try {
-		const res = await fetch(`${BASE_URL}/users`, {
-			method: "POST",
+		const url = new URL(`${BASE_URL}/users/current`);
+		const res = await fetch(url, {
+			method: "PATCH",
 			headers: {
 				"Content-Type": "application/json",
 				Accept: "application/json",
+				Authorization: token,
 			},
 			body: JSON.stringify(payload),
 		});
@@ -29,7 +30,7 @@ export async function authRegister(
 		const data = await res.json();
 		return {
 			success: true,
-			message: "Registration successful.",
+			message: "User successfully updated.",
 			data: data.data,
 		};
 	} catch (error) {
@@ -41,32 +42,35 @@ export async function authRegister(
 	}
 }
 
-export async function authLogin(
-	payload: LoginPayload
-): Promise<Response<LoginResponse>> {
+export async function userUpdatePassword(
+	token: string,
+	password: string
+): Promise<Response<UserResponse>> {
 	try {
-		const res = await fetch(`${BASE_URL}/users/login`, {
-			method: "POST",
+		const url = new URL(`${BASE_URL}/users/current`);
+		const res = await fetch(url, {
+			method: "PATCH",
 			headers: {
 				"Content-Type": "application/json",
 				Accept: "application/json",
+				Authorization: token,
 			},
-			body: JSON.stringify(payload),
+			body: JSON.stringify({ password }),
 		});
 
-		const resBody = await res.json();
-
 		if (!res.ok) {
+			const errorData = await res.json();
 			return {
 				success: false,
-				message: resBody.errors,
+				message: errorData.errors,
 			};
 		}
 
+		const data = await res.json();
 		return {
 			success: true,
-			message: "Login successful.",
-			data: resBody.data,
+			message: "Password successfully updated.",
+			data: data.data,
 		};
 	} catch (error) {
 		console.error("error:", error);
@@ -77,12 +81,14 @@ export async function authLogin(
 	}
 }
 
-export async function authLogout(
+export async function userDetail(
 	token: string
 ): Promise<Response<UserResponse>> {
 	try {
-		const res = await fetch(`${BASE_URL}/users/logout`, {
-			method: "DELETE",
+		const url = new URL(`${BASE_URL}/users/current`);
+
+		const res = await fetch(url, {
+			method: "GET",
 			headers: {
 				"Content-Type": "application/json",
 				Accept: "application/json",
@@ -101,7 +107,7 @@ export async function authLogout(
 		const data = await res.json();
 		return {
 			success: true,
-			message: "Logout successfully.",
+			message: "User successfully fetched.",
 			data: data.data,
 		};
 	} catch (error) {
