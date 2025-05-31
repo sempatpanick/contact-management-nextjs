@@ -26,6 +26,7 @@ export default function Login() {
 			return;
 		}
 
+		document.cookie = `token=${response.data?.token}; path=/; max-age=86400; SameSite=Strict`;
 		setToken(response.data?.token ?? "");
 		redirect("/dashboard/contacts");
 	}

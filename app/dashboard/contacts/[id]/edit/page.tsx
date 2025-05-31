@@ -3,11 +3,13 @@
 import { alertError, alertSuccess } from "@/lib/alert";
 import { contactDetail, contactUpdate } from "@/lib/api/contactApi";
 import Link from "next/link";
+import { useParams } from "next/navigation";
 import { FormEvent, useState } from "react";
 import { useEffectOnce, useLocalStorage } from "react-use";
 
-export default function ContactEdit({ params }: { params: { id: string } }) {
-	const id = parseInt(params.id);
+export default function ContactEdit() {
+	const params = useParams();
+	const id = parseInt((params?.id ?? "").toString());
 	const [first_name, setFirstName] = useState("");
 	const [last_name, setLastName] = useState("");
 	const [email, setEmail] = useState("");

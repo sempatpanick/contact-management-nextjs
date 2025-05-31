@@ -5,12 +5,13 @@ import { addressCreate } from "@/lib/api/addressApi";
 import { contactDetail } from "@/lib/api/contactApi";
 import { ContactResponse } from "@/types/ContactResponse";
 import Link from "next/link";
-import { redirect } from "next/navigation";
+import { redirect, useParams } from "next/navigation";
 import { FormEvent, useState } from "react";
 import { useEffectOnce, useLocalStorage } from "react-use";
 
-export default function AddressCreate({ params }: { params: { id: string } }) {
-	const id = parseInt(params.id);
+export default function AddressCreate() {
+	const params = useParams();
+	const id = parseInt((params?.id ?? "").toString());
 	const [token, _] = useLocalStorage("token", "");
 
 	const [contact, setContact] = useState<ContactResponse | null>(null);

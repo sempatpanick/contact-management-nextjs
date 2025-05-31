@@ -5,17 +5,14 @@ import { addressDetail, addressUpdate } from "@/lib/api/addressApi";
 import { contactDetail } from "@/lib/api/contactApi";
 import { ContactResponse } from "@/types/ContactResponse";
 import Link from "next/link";
-import { redirect } from "next/navigation";
+import { redirect, useParams } from "next/navigation";
 import { FormEvent, useState } from "react";
 import { useEffectOnce, useLocalStorage } from "react-use";
 
-export default function AddressEdit({
-	params,
-}: {
-	params: { id: string; addressId: string };
-}) {
-	const id = parseInt(params.id);
-	const addressId = parseInt(params.addressId);
+export default function AddressEdit() {
+	const params = useParams();
+	const id = parseInt((params?.id ?? "").toString());
+	const addressId = parseInt((params?.addressId ?? "").toString());
 	const [token, _] = useLocalStorage("token", "");
 
 	const [contact, setContact] = useState<ContactResponse | null>(null);

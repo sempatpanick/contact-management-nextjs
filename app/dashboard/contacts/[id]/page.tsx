@@ -6,11 +6,13 @@ import { contactDetail } from "@/lib/api/contactApi";
 import { AddressResponse } from "@/types/AddressResponse";
 import { ContactResponse } from "@/types/ContactResponse";
 import Link from "next/link";
+import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useEffectOnce, useLocalStorage } from "react-use";
 
-export default function ContactDetail({ params }: { params: { id: string } }) {
-	const id = parseInt(params.id);
+export default function ContactDetail() {
+	const params = useParams();
+	const id = parseInt((params?.id ?? "").toString());
 	const [contact, setContact] = useState<ContactResponse | null>(null);
 	const [addresses, setAddresses] = useState<Array<AddressResponse>>([]);
 	const [reloadAddress, setReloadAddress] = useState(false);

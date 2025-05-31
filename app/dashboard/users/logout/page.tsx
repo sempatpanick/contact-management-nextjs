@@ -15,6 +15,7 @@ export default function UserLogout() {
 			await alertError(response.message ?? "Failed to logout");
 			return;
 		}
+		document.cookie = "token=; path=/; max-age=0; SameSite=Strict";
 		setToken("");
 		redirect("/login");
 	}
