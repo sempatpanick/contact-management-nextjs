@@ -113,7 +113,50 @@ export async function addressList(
 		const data = await res.json();
 		return {
 			success: true,
-			message: "Contacts successfully fetched.",
+			message: "Addresses successfully fetched.",
+			data: data.data,
+			paging: data.paging,
+		};
+	} catch (error) {
+		console.error("error:", error);
+		return {
+			success: false,
+			message: "Something went wrong. Please try again.",
+		};
+	}
+}
+
+export async function addressDetail(
+	token: string,
+	contactId: number,
+	id: number
+): Promise<Response<AddressResponse>> {
+	try {
+		const url = new URL(
+			`${BASE_URL}/contacts/${contactId}/addresses/${id}`
+		);
+
+		const res = await fetch(url, {
+			method: "GET",
+			headers: {
+				"Content-Type": "application/json",
+				Accept: "application/json",
+				Authorization: token,
+			},
+		});
+
+		if (!res.ok) {
+			const errorData = await res.json();
+			return {
+				success: false,
+				message: errorData.errors,
+			};
+		}
+
+		const data = await res.json();
+		return {
+			success: true,
+			message: "Address successfully fetched.",
 			data: data.data,
 			paging: data.paging,
 		};
