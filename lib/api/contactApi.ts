@@ -51,7 +51,7 @@ export async function contactUpdate(
 	try {
 		const url = new URL(`${BASE_URL}/contacts/${id}`);
 		const res = await fetch(url, {
-			method: "POST",
+			method: "PUT",
 			headers: {
 				"Content-Type": "application/json",
 				Accept: "application/json",

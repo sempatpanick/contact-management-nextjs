@@ -10,7 +10,7 @@ import { useEffect, useState } from "react";
 import { useEffectOnce, useLocalStorage } from "react-use";
 
 export default function ContactDetail({ params }: { params: { id: string } }) {
-	const id = params.id;
+	const id = parseInt(params.id);
 	const [contact, setContact] = useState<ContactResponse | null>(null);
 	const [addresses, setAddresses] = useState<Array<AddressResponse>>([]);
 	const [reloadAddress, setReloadAddress] = useState(false);
@@ -18,7 +18,7 @@ export default function ContactDetail({ params }: { params: { id: string } }) {
 	const [token, _] = useLocalStorage("token", "");
 
 	async function fetchContactDetail() {
-		const response = await contactDetail(token ?? "", parseInt(id));
+		const response = await contactDetail(token ?? "", id);
 
 		if (!response.success) {
 			alertError(response.message ?? "Failed to get contact detail");
@@ -29,7 +29,7 @@ export default function ContactDetail({ params }: { params: { id: string } }) {
 	}
 
 	async function fetchAddresses() {
-		const response = await addressList(token ?? "", parseInt(id));
+		const response = await addressList(token ?? "", id);
 
 		if (!response.success) {
 			alertError(response.message ?? "Failed to get address list");
@@ -47,11 +47,7 @@ export default function ContactDetail({ params }: { params: { id: string } }) {
 			return;
 		}
 
-		const response = await addressDelete(
-			token ?? "",
-			parseInt(id),
-			addressId
-		);
+		const response = await addressDelete(token ?? "", id, addressId);
 
 		if (!response.success) {
 			alertError(response.message ?? "Failed to delete address");
@@ -156,7 +152,7 @@ export default function ContactDetail({ params }: { params: { id: string } }) {
 							<div className="grid grid-cols-1 md:grid-cols-2 gap-5">
 								<div className="bg-gray-700 bg-opacity-50 p-5 rounded-lg border-2 border-dashed border-gray-600 shadow-md card-hover">
 									<Link
-										href={"addresses/create"}
+										href={`${id}/addresses/create`}
 										className="block h-full">
 										<div className="flex flex-col items-center justify-center h-full text-center py-4">
 											<div className="w-16 h-16 bg-gradient rounded-full flex items-center justify-center mb-4 shadow-lg transform transition-transform duration-300 hover:scale-110">
