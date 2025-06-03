@@ -1,4 +1,4 @@
-import ContactDetailTemplate from "@/src/components/ContactDetail/Template/ContactDetailTemplate";
+import ContactDetailTemplate from "@/src/components/Pages/ContactDetail/Template/ContactDetailTemplate";
 
 export default function ContactDetail() {
 	return <ContactDetailTemplate />;
