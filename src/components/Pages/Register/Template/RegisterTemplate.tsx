@@ -4,7 +4,7 @@ import { AuthUseCase } from "@/src/domain/useCases/authUseCase";
 import { alertError, alertSuccess } from "@/src/lib/alert";
 import { redirect } from "next/navigation";
 import { FormEvent, useState } from "react";
-import RegisterUnitForm from "../Units/RegisterUnitForms";
+import RegisterSectionForm from "../Sections/RegisterSectionForms";
 import AuthHeader from "@/src/components/Common/AuthHeader";
 
 export default function RegisterTemplate() {
@@ -42,7 +42,7 @@ export default function RegisterTemplate() {
 		<>
 			<div className="animate-fade-in bg-gray-800 bg-opacity-80 p-8 rounded-xl shadow-custom border border-gray-700 backdrop-blur-sm w-full max-w-md">
 				<AuthHeader description="Create a new account" />
-				<RegisterUnitForm
+				<RegisterSectionForm
 					handleSubmit={handleSubmit}
 					inputUsername={{
 						value: username,

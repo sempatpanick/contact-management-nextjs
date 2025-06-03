@@ -7,7 +7,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { useState, FormEvent } from "react";
 import { useLocalStorage } from "react-use";
-import LoginUnitForm from "../Units/LoginUnitForm";
+import LoginSectionForm from "../Sections/LoginSectionForm";
 
 export default function LoginTemplate() {
 	const authUseCase = AuthUseCase;
@@ -39,7 +39,7 @@ export default function LoginTemplate() {
 		<>
 			<div className="animate-fade-in bg-gray-800 bg-opacity-80 p-8 rounded-xl shadow-custom border border-gray-700 backdrop-blur-sm w-full max-w-md">
 				<AuthHeader description="Sign in to your account" />
-				<LoginUnitForm
+				<LoginSectionForm
 					handleSubmit={handleSubmit}
 					inputUsername={{
 						value: username,

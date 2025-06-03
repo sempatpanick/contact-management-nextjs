@@ -2,7 +2,7 @@ import Input from "@/src/components/Common/Units/Input";
 import Link from "next/link";
 import { ChangeEventHandler, FormEventHandler } from "react";
 
-interface RegisterUnitFormProps {
+interface RegisterSectionFormProps {
 	handleSubmit?: FormEventHandler;
 	inputUsername?: {
 		value: string | number | readonly string[] | undefined;
@@ -22,7 +22,7 @@ interface RegisterUnitFormProps {
 	};
 }
 
-export default function RegisterUnitForm(props: RegisterUnitFormProps) {
+export default function RegisterSectionForm(props: RegisterSectionFormProps) {
 	return (
 		<>
 			<form onSubmit={props.handleSubmit}>
