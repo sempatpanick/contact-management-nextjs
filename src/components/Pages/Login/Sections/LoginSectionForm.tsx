@@ -33,7 +33,7 @@ export default function LoginSectionForm(props: LoginSectionFormProps) {
 							id="username"
 							name="username"
 							placeholder="Enter your username"
-							value={props.inputPassword?.value}
+							value={props.inputUsername?.value}
 							onChange={props.inputUsername?.onChange}
 							required
 						/>

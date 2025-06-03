@@ -62,8 +62,8 @@ export default function RegisterSectionForm(props: RegisterSectionFormProps) {
 							id="name"
 							name="name"
 							placeholder="Enter your full name"
-							value={props.inputUsername?.value}
-							onChange={props.inputUsername?.onChange}
+							value={props.inputName?.value}
+							onChange={props.inputName?.onChange}
 							required
 						/>
 					</div>

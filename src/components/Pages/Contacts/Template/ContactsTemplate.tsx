@@ -3,7 +3,7 @@
 import { alertConfirm, alertError, alertSuccess } from "@/src/lib/alert";
 import { ContactResponse } from "@/src/domain/entities/ContactResponse";
 import Link from "next/link";
-import { FormEvent, Suspense, useEffect, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { useEffectOnce, useLocalStorage } from "react-use";
 import { ContactUseCase } from "@/src/domain/useCases/contactUseCase";
 
