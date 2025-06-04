@@ -7,6 +7,9 @@ import { FormEvent, useEffect, useState } from "react";
 import { useEffectOnce, useLocalStorage } from "react-use";
 import { ContactUseCase } from "@/src/domain/useCases/contactUseCase";
 import ContactSectionSearchForm from "../Sections/ContactSectionSearchForm";
+import ContactSectionContactCard from "../Sections/ContactSectionContactCard";
+import ContactSectionPagination from "../Sections/ContactSectionPagination";
+import DashboardContentHeader from "@/src/components/Common/DashboardContentHeader";
 
 export default function ContactsTemplate() {
 	const contactUseCase = ContactUseCase;
@@ -123,12 +126,7 @@ export default function ContactsTemplate() {
 	return (
 		<>
 			<div>
-				<div className="flex items-center mb-6">
-					<i className="fas fa-users text-blue-400 text-2xl mr-3" />
-					<h1 className="text-2xl font-bold text-white">
-						My Contacts
-					</h1>
-				</div>
+				<DashboardContentHeader icon="fa-users" title="My Contacts" />
 				<div className="bg-gray-800 bg-opacity-80 rounded-xl shadow-custom border border-gray-700 p-6 mb-8 animate-fade-in">
 					<div className="flex items-center justify-between mb-4">
 						<div className="flex items-center">
@@ -184,112 +182,23 @@ export default function ContactsTemplate() {
 						</Link>
 					</div>
 					{contacts.map(contact => (
-						<div
+						<ContactSectionContactCard
 							key={contact.id}
-							className="bg-gray-800 bg-opacity-80 rounded-xl shadow-custom border border-gray-700 overflow-hidden card-hover animate-fade-in">
-							<div className="p-6">
-								<Link
-									href={`/dashboard/contacts/${contact.id}`}
-									className="block cursor-pointer hover:bg-gray-700 rounded-lg transition-all duration-200 p-3">
-									<div className="flex items-center mb-3">
-										<div className="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center mr-3 shadow-md">
-											<i className="fas fa-user text-white" />
-										</div>
-										<h2 className="text-xl font-semibold text-white hover:text-blue-300 transition-colors duration-200">
-											{contact.first_name}{" "}
-											{contact.last_name}
-										</h2>
-									</div>
-									<div className="space-y-3 text-gray-300 ml-2">
-										<p className="flex items-center">
-											<i className="fas fa-user-tag text-gray-500 w-6" />
-											<span className="font-medium w-24">
-												First Name:
-											</span>
-											<span>{contact.first_name}</span>
-										</p>
-										<p className="flex items-center">
-											<i className="fas fa-user-tag text-gray-500 w-6" />
-											<span className="font-medium w-24">
-												Last Name:
-											</span>
-											<span>{contact.last_name}</span>
-										</p>
-										<p className="flex items-center">
-											<i className="fas fa-envelope text-gray-500 w-6" />
-											<span className="font-medium w-24">
-												Email:
-											</span>
-											<span>{contact.email}</span>
-										</p>
-										<p className="flex items-center">
-											<i className="fas fa-phone text-gray-500 w-6" />
-											<span className="font-medium w-24">
-												Phone:
-											</span>
-											<span>{contact.phone}</span>
-										</p>
-									</div>
-								</Link>
-								<div className="mt-4 flex justify-end space-x-3">
-									<Link
-										href={`/dashboard/contacts/${contact.id}/edit`}
-										className="px-4 py-2 bg-gradient text-white rounded-lg hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-800 transition-all duration-200 font-medium shadow-md flex items-center">
-										<i className="fas fa-edit mr-2" /> Edit
-									</Link>
-									<button
-										onClick={() =>
-											handleContactDelete(contact.id)
-										}
-										className="px-4 py-2 bg-gradient-to-r from-red-600 to-red-500 text-white rounded-lg hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 focus:ring-offset-gray-800 transition-all duration-200 font-medium shadow-md flex items-center">
-										<i className="fas fa-trash-alt mr-2" />
-										Delete
-									</button>
-								</div>
-							</div>
-						</div>
+							contact={contact}
+							handleClickDelete={() =>
+								handleContactDelete(contact.id)
+							}
+						/>
 					))}
 				</div>
-				<div className="mt-10 flex justify-center">
-					<nav className="flex items-center space-x-3 bg-gray-800 bg-opacity-80 rounded-xl shadow-custom border border-gray-700 p-3 animate-fade-in">
-						{page > 1 && (
-							<button
-								onClick={() => handlePageChange(page - 1)}
-								className="px-4 py-2 bg-gray-700 text-gray-300 rounded-lg hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-800 transition-all duration-200 flex items-center">
-								<i className="fas fa-chevron-left mr-2" />{" "}
-								Previous
-							</button>
-						)}
-						{getPages().map(item => {
-							if (item == page) {
-								return (
-									<button
-										key={item}
-										onClick={() => handlePageChange(item)}
-										className="px-4 py-2 bg-gradient text-white rounded-lg hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-800 transition-all duration-200 font-medium shadow-md">
-										{item}
-									</button>
-								);
-							} else {
-								return (
-									<button
-										key={item}
-										onClick={() => handlePageChange(item)}
-										className="px-4 py-2 bg-gray-700 text-gray-300 rounded-lg hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-800 transition-all duration-200">
-										{item}
-									</button>
-								);
-							}
-						})}
-						{page < totalPage && (
-							<button
-								onClick={() => handlePageChange(page + 1)}
-								className="px-4 py-2 bg-gray-700 text-gray-300 rounded-lg hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-800 transition-all duration-200 flex items-center">
-								Next <i className="fas fa-chevron-right ml-2" />
-							</button>
-						)}
-					</nav>
-				</div>
+				<ContactSectionPagination
+					page={page}
+					totalPage={totalPage}
+					pages={getPages()}
+					onPrevious={() => handlePageChange(page - 1)}
+					onPageChange={value => handlePageChange(value)}
+					onNext={() => handlePageChange(page + 1)}
+				/>
 			</div>
 		</>
 	);
