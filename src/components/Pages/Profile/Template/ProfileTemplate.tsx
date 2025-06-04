@@ -4,6 +4,8 @@ import { UserUseCase } from "@/src/domain/useCases/userUseCase";
 import { alertError, alertSuccess } from "@/src/lib/alert";
 import { FormEvent, useState } from "react";
 import { useLocalStorage, useEffectOnce } from "react-use";
+import ProfileSectionForm from "../Sections/ProfileSectionForm";
+import ProfileSectionPasswordForm from "../Sections/ProfileSectionPasswordForm";
 
 export default function ProfileTemplate() {
 	const userCase = UserUseCase;
@@ -86,40 +88,13 @@ export default function ProfileTemplate() {
 									Edit Profile
 								</h2>
 							</div>
-							<form onSubmit={handleSubmitProfile}>
-								<div className="mb-5">
-									<label
-										htmlFor="name"
-										className="block text-gray-300 text-sm font-medium mb-2">
-										Full Name
-									</label>
-									<div className="relative">
-										<div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-											<i className="fas fa-user text-gray-500" />
-										</div>
-										<input
-											type="text"
-											id="name"
-											name="name"
-											className="w-full pl-10 pr-3 py-3 bg-gray-700 bg-opacity-50 border border-gray-600 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
-											placeholder="Enter your full name"
-											value={name}
-											onChange={e =>
-												setName(e.target.value)
-											}
-											required
-										/>
-									</div>
-								</div>
-								<div className="mt-6">
-									<button
-										type="submit"
-										className="w-full bg-gradient text-white py-3 px-4 rounded-lg hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-800 transition-all duration-200 font-medium shadow-lg transform hover:-translate-y-0.5 flex items-center justify-center">
-										<i className="fas fa-save mr-2" />{" "}
-										Update Profile
-									</button>
-								</div>
-							</form>
+							<ProfileSectionForm
+								handleSubmit={handleSubmitProfile}
+								inputName={{
+									value: name,
+									onChange: e => setName(e.target.value),
+								}}
+							/>
 						</div>
 					</div>
 					<div className="bg-gray-800 bg-opacity-80 rounded-xl shadow-custom border border-gray-700 overflow-hidden card-hover animate-fade-in">
@@ -132,66 +107,18 @@ export default function ProfileTemplate() {
 									Change Password
 								</h2>
 							</div>
-							<form onSubmit={handleSubmitPassword}>
-								<div className="mb-5">
-									<label
-										htmlFor="new_password"
-										className="block text-gray-300 text-sm font-medium mb-2">
-										New Password
-									</label>
-									<div className="relative">
-										<div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-											<i className="fas fa-lock text-gray-500" />
-										</div>
-										<input
-											type="password"
-											id="new_password"
-											name="new_password"
-											className="w-full pl-10 pr-3 py-3 bg-gray-700 bg-opacity-50 border border-gray-600 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
-											placeholder="Enter your new password"
-											value={password}
-											onChange={e =>
-												setPassword(e.target.value)
-											}
-											required
-										/>
-									</div>
-								</div>
-								<div className="mb-5">
-									<label
-										htmlFor="confirm_password"
-										className="block text-gray-300 text-sm font-medium mb-2">
-										Confirm New Password
-									</label>
-									<div className="relative">
-										<div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-											<i className="fas fa-check-double text-gray-500" />
-										</div>
-										<input
-											type="password"
-											id="confirm_password"
-											name="confirm_password"
-											className="w-full pl-10 pr-3 py-3 bg-gray-700 bg-opacity-50 border border-gray-600 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
-											placeholder="Confirm your new password"
-											value={confirmPassword}
-											onChange={e =>
-												setConfirmPassword(
-													e.target.value
-												)
-											}
-											required
-										/>
-									</div>
-								</div>
-								<div className="mt-6">
-									<button
-										type="submit"
-										className="w-full bg-gradient text-white py-3 px-4 rounded-lg hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-800 transition-all duration-200 font-medium shadow-lg transform hover:-translate-y-0.5 flex items-center justify-center">
-										<i className="fas fa-key mr-2" /> Update
-										Password
-									</button>
-								</div>
-							</form>
+							<ProfileSectionPasswordForm
+								handleSubmit={handleSubmitPassword}
+								inputPassword={{
+									value: password,
+									onChange: e => setPassword(e.target.value),
+								}}
+								inputPasswordConfirm={{
+									value: confirmPassword,
+									onChange: e =>
+										setConfirmPassword(e.target.value),
+								}}
+							/>
 						</div>
 					</div>
 				</div>
