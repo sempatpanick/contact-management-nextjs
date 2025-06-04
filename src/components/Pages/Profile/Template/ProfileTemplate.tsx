@@ -6,6 +6,7 @@ import { FormEvent, useState } from "react";
 import { useLocalStorage, useEffectOnce } from "react-use";
 import ProfileSectionForm from "../Sections/ProfileSectionForm";
 import ProfileSectionPasswordForm from "../Sections/ProfileSectionPasswordForm";
+import DashboardContentHeader from "@/src/components/Common/DashboardContentHeader";
 
 export default function ProfileTemplate() {
 	const userCase = UserUseCase;
@@ -71,12 +72,7 @@ export default function ProfileTemplate() {
 	return (
 		<>
 			<div>
-				<div className="flex items-center mb-6">
-					<i className="fas fa-user-cog text-blue-400 text-2xl mr-3" />
-					<h1 className="text-2xl font-bold text-white">
-						My Profile
-					</h1>
-				</div>
+				<DashboardContentHeader icon="fa-user-cog" title="My Profile" />
 				<div className="grid grid-cols-1 md:grid-cols-2 gap-8">
 					<div className="bg-gray-800 bg-opacity-80 rounded-xl shadow-custom border border-gray-700 overflow-hidden card-hover animate-fade-in">
 						<div className="p-6">
