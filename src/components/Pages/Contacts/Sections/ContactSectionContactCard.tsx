@@ -1,6 +1,5 @@
 import { ContactResponse } from "@/src/domain/entities/ContactResponse";
 import Link from "next/link";
-import { MouseEventHandler } from "react";
 
 interface ContactSectionContactCardProps {
 	contact?: ContactResponse;

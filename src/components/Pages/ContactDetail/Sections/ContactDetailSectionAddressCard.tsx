@@ -4,7 +4,7 @@ import Link from "next/link";
 interface ContactDetailSectionAddressCardProps {
 	address: AddressResponse;
 	contactId: number;
-	handleDelete: (addressId: number) => Promise<void>;
+	handleDelete: (addressId: number) => void;
 }
 
 export default function ContactDetailSectionAddressCard(
