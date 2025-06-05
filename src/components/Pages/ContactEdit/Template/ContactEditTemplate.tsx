@@ -8,6 +8,8 @@ import Link from "next/link";
 import { useParams } from "next/navigation";
 import { FormEvent, useState } from "react";
 import { useEffectOnce, useLocalStorage } from "react-use";
+import ContactEditSectionForm from "../Sections/ContactEditSectionForm";
+import DashboardContentHeader from "@/src/components/Common/DashboardContentHeader";
 
 export default function ContactEditTemplate() {
 	const contactUseCase = ContactUseCase;
@@ -58,95 +60,39 @@ export default function ContactEditTemplate() {
 	return (
 		<>
 			<div>
-				<div className="flex items-center mb-6">
-					<Link
-						href={"/dashboard/contacts"}
-						className="text-blue-400 hover:text-blue-300 mr-4 flex items-center transition-colors duration-200">
-						<i className="fas fa-arrow-left mr-2" /> Back to
-						Contacts
-					</Link>
-					<h1 className="text-2xl font-bold text-white flex items-center">
-						<i className="fas fa-user-edit text-blue-400 mr-3" />{" "}
-						Edit Contact
-					</h1>
-				</div>
+				<DashboardContentHeader
+					icon="fa-user-edit"
+					title="Edit Contact"
+					leading={
+						<Link
+							href={"/dashboard/contacts"}
+							className="text-blue-400 hover:text-blue-300 mr-4 flex items-center transition-colors duration-200">
+							<i className="fas fa-arrow-left mr-2" /> Back to
+							Contacts
+						</Link>
+					}
+				/>
 				<div className="bg-gray-800 bg-opacity-80 rounded-xl shadow-custom border border-gray-700 overflow-hidden max-w-2xl mx-auto animate-fade-in">
 					<div className="p-8">
-						<form onSubmit={handleSubmit}>
-							<div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
-								<InputWithLabel
-									icon="fa-user-tag"
-									label="First Name"
-									input={{
-										type: "text",
-										id: "first_name",
-										name: "first_name",
-										placeholder: "Enter first name",
-										value: first_name,
-										onChange: e =>
-											setFirstName(e.target.value),
-										required: true,
-									}}
-								/>
-								<InputWithLabel
-									icon="fa-user-tag"
-									label="Last Name"
-									input={{
-										type: "text",
-										id: "last_name",
-										name: "last_name",
-										placeholder: "Enter last name",
-										value: last_name,
-										onChange: e =>
-											setLastName(e.target.value),
-										required: true,
-									}}
-								/>
-							</div>
-							<div className="mb-5">
-								<InputWithLabel
-									icon="fa-envelope"
-									label="Email"
-									input={{
-										type: "email",
-										id: "email",
-										name: "email",
-										placeholder: "Enter email address",
-										value: email,
-										onChange: e => setEmail(e.target.value),
-										required: true,
-									}}
-								/>
-							</div>
-							<div className="mb-6">
-								<InputWithLabel
-									icon="fa-phone"
-									label="Phone"
-									input={{
-										type: "tel",
-										id: "phone",
-										name: "phone",
-										placeholder: "Enter phone number",
-										value: phone,
-										onChange: e => setPhone(e.target.value),
-										required: true,
-									}}
-								/>
-							</div>
-							<div className="flex justify-end space-x-4">
-								<Link
-									href={"/dashboard/contacts"}
-									className="px-5 py-3 bg-gray-700 text-white rounded-lg hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 focus:ring-offset-gray-800 transition-all duration-200 flex items-center shadow-md">
-									<i className="fas fa-times mr-2" /> Cancel
-								</Link>
-								<button
-									type="submit"
-									className="px-5 py-3 bg-gradient text-white rounded-lg hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-800 transition-all duration-200 font-medium shadow-lg transform hover:-translate-y-0.5 flex items-center">
-									<i className="fas fa-save mr-2" /> Save
-									Changes
-								</button>
-							</div>
-						</form>
+						<ContactEditSectionForm
+							handleSubmit={handleSubmit}
+							inputFirstName={{
+								value: first_name,
+								onChange: e => setFirstName(e.target.value),
+							}}
+							inputLastName={{
+								value: last_name,
+								onChange: e => setLastName(e.target.value),
+							}}
+							inputEmail={{
+								value: email,
+								onChange: e => setEmail(e.target.value),
+							}}
+							inputPhone={{
+								value: phone,
+								onChange: e => setPhone(e.target.value),
+							}}
+						/>
 					</div>
 				</div>
 			</div>
